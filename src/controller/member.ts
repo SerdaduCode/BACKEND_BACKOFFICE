@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { MemberService } from "../service/member";
 
 export class MemberController {
@@ -6,29 +6,46 @@ export class MemberController {
   constructor(svc: MemberService) {
     this.svc = svc;
   }
-  getMembers = async (req: Request, res: Response) => {
+  getMembers = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await this.svc.getMembers();
       res.status(200).json({
         users: result,
       });
     } catch (error) {
-      console.log(error);
-      res.status(400).json(error);
+      next(error);
     }
   };
-  register = async (req: any, res: any) => {
+  register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
       const result = await this.svc.register(data);
       res.status(201).json(result);
     } catch (error) {
-      console.log(error);
-      res.status(400).json(error);
+      next(error);
     }
   };
-  login = async (req: Request, res: Response) => {
+  login = async (req: Request, res: Response, next: NextFunction) => {
     try {
-    } catch (error) {}
+      const data = req.body;
+      const result = await this.svc.login(data);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+  getMemberByEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const email = req.params.email;
+      console.log(email);
+      const member = await this.svc.getMemberByEmail(email);
+      res.status(200).json(member);
+    } catch (error) {
+      next(error);
+    }
   };
 }

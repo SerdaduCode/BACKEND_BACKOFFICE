@@ -1,14 +1,12 @@
 import express, { NextFunction, Request, Response } from "express";
 import usersRoutes from "./routes/member";
-import dotenv from "dotenv";
 import { MemberService } from "./service/member";
 import { MemberController } from "./controller/member";
-
-dotenv.config();
+import handleErrorMiddleware from "./middleware/handleErrorMiddleware";
 
 const app = express();
 const routes = express.Router();
-const port = 3000;
+const port = 8080;
 
 app.use(express.json());
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -35,6 +33,8 @@ app.use("", usersRoutes(routes, controllerMember));
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
+
+app.use(handleErrorMiddleware);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
