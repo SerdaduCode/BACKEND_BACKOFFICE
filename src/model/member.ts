@@ -13,6 +13,7 @@ class Member {
         email: data.email,
         name: data.name,
         password: data.password,
+        department_id: data.department_id,
       },
     });
     return member;

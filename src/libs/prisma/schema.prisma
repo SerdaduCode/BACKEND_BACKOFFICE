@@ -8,6 +8,14 @@ datasource db {
     directUrl = env("DIRECT_URL")
 }
 
+model department {
+    id              String  @id @default(uuid())
+    name            String  @db.VarChar(255)
+    desc            String  @db.VarChar(255)
+
+    members         member[]
+}
+
 model member {
     id             String  @id @default(uuid())
     email          String  @unique @db.VarChar(255)
@@ -18,9 +26,36 @@ model member {
     address        String? @db.Text
     img            String? @db.VarChar(255)
     structure_role String? @db.VarChar(50)
-    team_id        String? @db.VarChar(36)
+    department_id  String
+
+    projects       project_record[]
+    department           department         @relation(fields: [department_id], references: [id])
 
     @@index([email])
+}
+
+model project {
+    id              String  @id @default(uuid())
+    name            String  @db.VarChar(255)
+    code_name       String  @db.VarChar(255)
+    desc            String  @db.VarChar(100)
+    start_date      DateTime @db.Date
+    end_date        DateTime @db.Date
+
+    project_records project_record[]
+}
+
+model project_record {
+    id              String  @id @default(uuid())
+    member_id       String
+    project_id      String
+    project_role    String  @db.VarChar(255)
+
+    member          member          @relation(fields: [member_id], references: [id])
+    project         project         @relation(fields: [project_id], references: [id])
+
+    @@index([member_id])
+    @@index([project_id])
 }
 
 enum Gender {
