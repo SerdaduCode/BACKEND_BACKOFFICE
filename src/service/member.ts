@@ -22,6 +22,9 @@ export class MemberService {
 
     const hashedPassword = encryptPassword(data.password);
     data.password = hashedPassword;
+    if (!data.department_id) {
+      data.department_id = "1";
+    }
     const token = await Member.createMember(data);
     return generateToken(token.id, token.email);
   };

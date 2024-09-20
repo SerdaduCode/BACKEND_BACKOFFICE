@@ -41,7 +41,6 @@ export class MemberController {
   ) => {
     try {
       const email = req.params.email;
-      console.log(email);
       const member = await this.svc.getMemberByEmail(email);
       res.status(200).json(member);
     } catch (error) {
