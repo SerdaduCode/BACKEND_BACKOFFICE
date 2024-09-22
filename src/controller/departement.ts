@@ -9,7 +9,7 @@ export class DepartementController {
   getDepartements = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await this.svc.getDepartements();
-      res.status(200).json(result);
+      res.status(200).json({ data: result });
     } catch (error) {
       next(error);
     }

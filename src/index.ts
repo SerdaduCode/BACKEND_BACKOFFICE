@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import usersRoutes from "./routes/member";
 import { MemberService } from "./service/member";
 import { MemberController } from "./controller/member";
@@ -12,19 +12,19 @@ const routes = express.Router();
 const port = 8080;
 
 app.use(express.json());
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    `${process.env.FRONTEND_URL} || http://localhost:3000`
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type, Authorization, Cache-Control, Origin, Accept"
-  );
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
   );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, Content-type, Authorization, Cache-control, Expires"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  req.headers["content-type"] = "application/json";
   next();
 });
 

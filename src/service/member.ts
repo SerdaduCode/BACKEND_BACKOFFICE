@@ -7,10 +7,11 @@ import { encryptPassword, generateToken } from "../utils/jwt/jwt";
 export class MemberService {
   login = async (data: dataMember) => {
     const member = await Member.getMemberByEmail(data.email);
-    if (!member) throw new BaseError(400, "User not found");
+    if (!member) throw new BaseError(404, "User not found");
     const isMatch = await bcrypt.compare(data.password, member.password);
     if (!isMatch) throw new BaseError(400, "Password is incorrect");
-    return generateToken(member.id, member.email);
+    const token = generateToken(member.id, member.email);
+    return token;
   };
   getMembers = async () => {
     const members = await Member.getMembers();
@@ -26,6 +27,7 @@ export class MemberService {
       data.department_id = "1";
     }
     const token = await Member.createMember(data);
+
     return generateToken(token.id, token.email);
   };
   getMemberByEmail = async (email: string) => {

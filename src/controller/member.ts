@@ -25,11 +25,11 @@ export class MemberController {
       next(error);
     }
   };
-  login = async (req: Request, res: Response, next: NextFunction) => {
+  login = async (req: any, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
-      const result = await this.svc.login(data);
-      res.status(200).json(result);
+      const token = await this.svc.login(data);
+      res.status(200).json({ message: "Login successful", token: token });
     } catch (error) {
       next(error);
     }
