@@ -6,6 +6,9 @@ import handleErrorMiddleware from "./middleware/handleErrorMiddleware";
 import { DepartementService } from "./service/departement";
 import { DepartementController } from "./controller/departement";
 import departementRoutes from "./routes/departement";
+import { ProjectService } from "./service/project";
+import { ProjectController } from "./controller/project";
+import projectRoutes from "./routes/project";
 
 const app = express();
 const routes = express.Router();
@@ -34,8 +37,12 @@ const controllerMember = new MemberController(svcMember);
 const svcDepartement = new DepartementService();
 const controllerDepartement = new DepartementController(svcDepartement);
 
+const svcProject = new ProjectService()
+const controllerProject = new ProjectController(svcProject)
+
 app.use("", usersRoutes(routes, controllerMember));
 app.use("", departementRoutes(routes, controllerDepartement));
+app.use("/project", projectRoutes(routes, controllerProject));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
