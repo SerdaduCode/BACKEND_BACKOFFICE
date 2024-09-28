@@ -34,15 +34,33 @@ export class MemberController {
       next(error);
     }
   };
-  getMemberByEmail = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
+
+  getMemberById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const email = req.params.email;
-      const member = await this.svc.getMemberByEmail(email);
+      const id = req.params.id;
+      const member = await this.svc.getMemberById(id);
       res.status(200).json(member);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  updateMember = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id;
+      const data = req.body;
+      const result = await this.svc.updateMember(id, data);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  deleteMember = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id;
+      const result = await this.svc.deleteMember(id);
+      res.status(200).json(result);
     } catch (error) {
       next(error);
     }

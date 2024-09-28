@@ -37,8 +37,8 @@ const controllerMember = new MemberController(svcMember);
 const svcDepartement = new DepartementService();
 const controllerDepartement = new DepartementController(svcDepartement);
 
-const svcProject = new ProjectService()
-const controllerProject = new ProjectController(svcProject)
+const svcProject = new ProjectService();
+const controllerProject = new ProjectController(svcProject);
 
 app.use("", usersRoutes(routes, controllerMember));
 app.use("", departementRoutes(routes, controllerDepartement));

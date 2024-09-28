@@ -14,6 +14,20 @@ export class DepartementController {
       next(error);
     }
   };
+
+  getDepartementById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = req.params.id;
+      const result = await this.svc.getDepartementById(id);
+      res.status(200).json({ data: result });
+    } catch (error) {
+      next(error);
+    }
+  };
   createDepartment = async (
     req: Request,
     res: Response,
@@ -23,6 +37,35 @@ export class DepartementController {
       const data = req.body;
       const result = await this.svc.createDepartment(data);
       res.status(201).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  updateDepartment = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = req.params.id;
+      const data = req.body;
+      const result = await this.svc.updateDepartment(id, data);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  deleteDepartment = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const id = req.params.id;
+      const result = await this.svc.deleteDepartment(id);
+      res.status(200).json(result);
     } catch (error) {
       next(error);
     }
