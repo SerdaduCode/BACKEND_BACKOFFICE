@@ -58,6 +58,22 @@ model project_record {
     @@index([project_id])
 }
 
+model event {
+    id           String @id @default(uuid())
+    name         String @db.VarChar(255)
+    pic_id       String
+    desc         String @db.VarChar(255)
+    date         DateTime @db.Date
+}
+
+model event_record {
+    id           String @id @default(uuid())
+    member_id         String @db.VarChar(255)
+    event_id       String
+    desc         String @db.VarChar(255)
+    date         DateTime @db.Date
+}
+
 enum Gender {
     MALE
     FEMALE
