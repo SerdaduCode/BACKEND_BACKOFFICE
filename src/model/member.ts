@@ -16,7 +16,6 @@ class Member {
         department_id: data.department_id,
       },
     });
-
     return member;
   }
   static async getMemberByEmail(email: string) {

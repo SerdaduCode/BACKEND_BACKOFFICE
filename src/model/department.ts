@@ -7,7 +7,6 @@ class Department {
     const departments = await database.department.findMany();
     return departments;
   }
-
   static async createDepartment(data: dataDepartment) {
     const department = await database.department.create({
       data: {

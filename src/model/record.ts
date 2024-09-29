@@ -17,5 +17,11 @@ class Record {
         });
         return record;
     }
+    static async deleteRecord(id: string) {
+        const record = await database.project_record.delete({
+            where: { id },
+        });
+        return record;
+    }
 }
 export default Record;
