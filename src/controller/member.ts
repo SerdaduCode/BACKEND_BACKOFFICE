@@ -7,10 +7,18 @@ export class MemberController {
     this.svc = svc;
   }
   getMembers = async (req: Request, res: Response, next: NextFunction) => {
+    const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+    const limit = req.query.limit
+      ? parseInt(req.query.limit as string, 10)
+      : 10;
+
     try {
-      const result = await this.svc.getMembers();
+      const result = await this.svc.getMembers(page, limit);
+      const totalMember = await this.svc.countMembers();
       res.status(200).json({
-        users: result,
+        data: result,
+        currentPage: page,
+        totalPages: Math.ceil(totalMember / limit),
       });
     } catch (error) {
       next(error);
@@ -50,7 +58,10 @@ export class MemberController {
       const id = req.params.id;
       const data = req.body;
       const result = await this.svc.updateMember(id, data);
-      res.status(200).json(result);
+      res.status(200).json({
+        message: "Member updated successfully",
+        data: result,
+      });
     } catch (error) {
       next(error);
     }

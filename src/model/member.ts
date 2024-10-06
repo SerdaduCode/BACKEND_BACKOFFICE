@@ -1,5 +1,7 @@
+import { parse } from "path";
 import database from "../config/database";
 import { dataMember } from "../utils/interface/member";
+import { count } from "console";
 
 class Member {
   static updateMemberID(id: string, data: dataMember) {
@@ -9,14 +11,27 @@ class Member {
         email: data.email,
         name: data.name,
         password: data.password,
+        phone: data.phone,
+        address: data.address,
+        structure_role: data.structure_role,
         department_id: data.department_id,
       },
     });
     return member;
   }
   constructor() {}
-  static async getMembers() {
-    const members = await database.member.findMany();
+  static async getMembers(page: number, limit: number) {
+    const members = await database.member.findMany({
+      skip: page,
+      take: limit,
+      orderBy: {
+        id: "asc",
+      },
+      include: {
+        department: true,
+        projects: true,
+      },
+    });
     return members;
   }
   static async getMemberByID(id: string) {
@@ -65,6 +80,10 @@ class Member {
       },
     });
     return member;
+  }
+  static async countMembers() {
+    const count = await database.member.count();
+    return count;
   }
 }
 

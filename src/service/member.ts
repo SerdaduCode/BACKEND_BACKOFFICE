@@ -14,9 +14,14 @@ export class MemberService {
     const token = generateToken(member.id, member.email);
     return token;
   };
-  getMembers = async () => {
-    const members = await Member.getMembers();
+  getMembers = async (page: number, limit: number) => {
+    const members = await Member.getMembers(page, limit);
     return members;
+  };
+
+  countMembers = async () => {
+    const count = await Member.countMembers();
+    return count;
   };
   register = async (data: dataMember) => {
     const existingUser = await Member.getMemberByEmail(data.email);

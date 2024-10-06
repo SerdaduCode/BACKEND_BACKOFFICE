@@ -9,7 +9,6 @@ export class ProjectController {
   getAllProjects = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await this.svc.getAllProjects();
-      console.log(result);
       res.status(200).json(result);
     } catch (error) {
       next(error);
