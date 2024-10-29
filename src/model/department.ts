@@ -3,8 +3,17 @@ import { dataDepartment } from "../utils/interface/department";
 
 class Department {
   constructor() {}
-  static async getDepartments() {
-    const departments = await database.department.findMany();
+  static async getDepartments(page:number, limit:number) {
+    const departments = await database.department.findMany({
+      skip: page,
+      take: limit,
+      orderBy: {
+        id: "asc",
+      },
+      include: {
+        members: true,
+      },
+    });
     return departments;
   }
   static async createDepartment(data: dataDepartment) {
@@ -45,6 +54,10 @@ class Department {
       where: { id },
     });
     return department;
+  }
+  static async countDepartements() {
+    const count = await database.department.count();
+    return count;
   }
 }
 

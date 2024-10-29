@@ -2,8 +2,8 @@ import Department from "../model/department";
 import { dataDepartment } from "../utils/interface/department";
 
 export class DepartementService {
-  getDepartements = async () => {
-    const departements = await Department.getDepartments();
+  getDepartements = async (page: number, limit: number) => {
+    const departements = await Department.getDepartments(page,limit);
     return departements;
   };
   createDepartment = async (data: dataDepartment) => {
@@ -21,5 +21,9 @@ export class DepartementService {
   deleteDepartment = async (id: string) => {
     const department = await Department.deleteDepartment(id);
     return department;
+  };
+  countDepartements = async () => {
+    const count = await Department.countDepartements();
+    return count;
   };
 }

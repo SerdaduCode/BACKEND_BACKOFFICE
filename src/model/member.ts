@@ -1,7 +1,5 @@
-import { parse } from "path";
 import database from "../config/database";
 import { dataMember } from "../utils/interface/member";
-import { count } from "console";
 
 class Member {
   static updateMemberID(id: string, data: dataMember) {
@@ -33,6 +31,7 @@ class Member {
       },
     });
     return members;
+    
   }
   static async getMemberByID(id: string) {
     const members = await database.member.findUnique({

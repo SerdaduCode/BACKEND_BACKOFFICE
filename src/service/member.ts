@@ -47,6 +47,16 @@ export class MemberService {
     }
   };
 
+  getMemberByEmail = async (email: string) => {
+    try {
+      const member = await Member.getMemberByEmail(email);
+      return member;
+    } catch (error) {
+      const { message } = error as Error;
+      throw new Error(message);
+    }
+  };
+
   updateMember = async (id: string, data: dataMember) => {
     try {
       const existingUser = await Member.getMemberByEmail(data.email);

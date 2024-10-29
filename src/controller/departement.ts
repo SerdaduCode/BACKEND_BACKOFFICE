@@ -7,9 +7,21 @@ export class DepartementController {
     this.svc = svc;
   }
   getDepartements = async (req: Request, res: Response, next: NextFunction) => {
+    const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+    const limit = req.query.limit
+      ? parseInt(req.query.limit as string, 10)
+      : 10;
+
     try {
-      const result = await this.svc.getDepartements();
-      res.status(200).json({ data: result });
+      const result = await this.svc.getDepartements(page, limit);
+      const totalDepartement = await this.svc.countDepartements();
+      res
+        .status(200)
+        .json({
+          data: result,
+          currentPage: page,
+          totalPages: Math.ceil(totalDepartement / limit),
+        });
     } catch (error) {
       next(error);
     }
