@@ -24,6 +24,10 @@ import { RecordEventController } from "./controller/event_record";
 import { EventRecordService } from "./service/event_record";
 import eventRecordRoutes from "./routes/event_record";
 
+import { WidgetController } from "./controller/widget";
+import { WidgetService } from "./service/widget";
+import widgetRoutes from "./routes/widget";
+
 const app = express();
 const routes = express.Router();
 const port = 8080;
@@ -63,12 +67,16 @@ const controllerEvent = new EventController(svcEvent)
 const svcEventRecord = new EventRecordService()
 const controllerEventRecord = new RecordEventController(svcEventRecord)
 
+const svcWidget = new WidgetService()
+const controllerWidget = new WidgetController(svcWidget)
+
 app.use("", usersRoutes(routes, controllerMember));
 app.use("", departementRoutes(routes, controllerDepartement));
-app.use("/project", projectRoutes(routes, controllerProject));
-app.use("/project-record", projectRecordRoutes(routes, controllerProjectRecord));
-app.use("/event", eventRoutes(routes, controllerEvent));
+app.use("/record", projectRecordRoutes(routes, controllerProjectRecord));
 app.use("/event-record", eventRecordRoutes(routes, controllerEventRecord));
+app.use("/project", projectRoutes(routes, controllerProject));
+app.use("/event", eventRoutes(routes, controllerEvent));
+app.use("/widget", widgetRoutes(routes, controllerWidget));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Serdadu BackOffice!");

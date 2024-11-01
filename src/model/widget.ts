@@ -19,11 +19,6 @@ class Widget {
 
     static async getMemberProject() {
         const projects = await database.project_record.findMany(
-            {
-                include: {
-                    member: true,
-                }
-            }
         );
         return projects;
     }

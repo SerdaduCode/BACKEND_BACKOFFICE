@@ -1,7 +1,8 @@
 import Widget from "../model/widget";
 
 export class WidgetService {
-    static async getWidgetCount() {
+    constructor() { }
+    async getWidgetCount() {
         const memberCount = await Widget.countMembers();
         const projectCount = await Widget.countProjects();
         const eventCount = await Widget.countEvents();
@@ -12,7 +13,7 @@ export class WidgetService {
         };
     }
 
-    static async getProjectMember() {
+    async getProjectMember() {
         const memberProject = await Widget.getMemberProject();
         return memberProject;
     }

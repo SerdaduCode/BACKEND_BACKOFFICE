@@ -1,9 +1,9 @@
 import { EventController } from "../controller/event";
 
 export default (routes: any, controller: EventController) => {
-    routes.get("/", controller.getEvents);
-    routes.post("/", controller.createEvent);
-    routes.delete("/:id", controller.deleteEvent);
-    routes.put("/:id", controller.updateEvent);
+    routes.get("/event", controller.getEvents);
+    routes.post("/event", controller.createEvent);
+    routes.delete("/event/:id", controller.deleteEvent);
+    routes.put("/event/:id", controller.updateEvent);
     return routes;
 }
