@@ -72,11 +72,11 @@ const controllerWidget = new WidgetController(svcWidget)
 
 app.use("", usersRoutes(routes, controllerMember));
 app.use("", departementRoutes(routes, controllerDepartement));
-app.use("/record", projectRecordRoutes(routes, controllerProjectRecord));
-app.use("/event-record", eventRecordRoutes(routes, controllerEventRecord));
-app.use("/project", projectRoutes(routes, controllerProject));
-app.use("/event", eventRoutes(routes, controllerEvent));
-app.use("/widget", widgetRoutes(routes, controllerWidget));
+app.use("", projectRecordRoutes(routes, controllerProjectRecord));
+app.use("", eventRecordRoutes(routes, controllerEventRecord));
+app.use("", projectRoutes(routes, controllerProject));
+app.use("", eventRoutes(routes, controllerEvent));
+app.use("", widgetRoutes(routes, controllerWidget));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Serdadu BackOffice!");
