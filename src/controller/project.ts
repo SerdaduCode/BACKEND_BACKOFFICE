@@ -7,9 +7,18 @@ export class ProjectController {
     this.svc = svc;
   }
   getAllProjects = async (req: Request, res: Response, next: NextFunction) => {
+    const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
+    const limit = req.query.limit
+      ? parseInt(req.query.limit as string, 10)
+      : 10;
     try {
-      const result = await this.svc.getAllProjects();
-      res.status(200).json(result);
+      const result = await this.svc.getAllProjects(page, limit);
+      const totalMember = await this.svc.countProjects();
+      res.status(200).json({
+        data: result,
+        currentPage: page,
+        totalPages: Math.ceil(totalMember / limit),
+      });
     } catch (error) {
       next(error);
     }

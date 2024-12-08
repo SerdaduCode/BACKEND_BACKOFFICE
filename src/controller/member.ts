@@ -37,8 +37,10 @@ export class MemberController {
     try {
       const data = req.body;
       const token = await this.svc.login(data);
-      const session= await this.svc.getMemberByEmail(data.email);
-      res.status(200).json({ message: "Login successful", token: token , data:session });
+      const session = await this.svc.getMemberByEmail(data.email);
+      res
+        .status(200)
+        .json({ message: "Login successful", token: token, data: session });
     } catch (error) {
       next(error);
     }

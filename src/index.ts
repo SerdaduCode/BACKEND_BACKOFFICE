@@ -58,17 +58,17 @@ const controllerDepartement = new DepartementController(svcDepartement);
 const svcProject = new ProjectService();
 const controllerProject = new ProjectController(svcProject);
 
-const svcProjectRecord = new RecordService()
-const controllerProjectRecord = new RecordController(svcProjectRecord)
+const svcProjectRecord = new RecordService();
+const controllerProjectRecord = new RecordController(svcProjectRecord);
 
-const svcEvent = new EventService()
-const controllerEvent = new EventController(svcEvent)
+const svcEvent = new EventService();
+const controllerEvent = new EventController(svcEvent);
 
-const svcEventRecord = new EventRecordService()
-const controllerEventRecord = new RecordEventController(svcEventRecord)
+const svcEventRecord = new EventRecordService();
+const controllerEventRecord = new RecordEventController(svcEventRecord);
 
-const svcWidget = new WidgetService()
-const controllerWidget = new WidgetController(svcWidget)
+const svcWidget = new WidgetService();
+const controllerWidget = new WidgetController(svcWidget);
 
 app.use("", usersRoutes(routes, controllerMember));
 app.use("", departementRoutes(routes, controllerDepartement));
